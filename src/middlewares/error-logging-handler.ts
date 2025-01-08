@@ -23,6 +23,11 @@ export const errorLoggingHandlerMiddleware = (
     logger.info(
       JSON.stringify({ ...errorResponse, ...err.toLogObject() }, null, 2)
     );
+  } else if (err instanceof CustomError && err.statusCode >= 500) {
+    // Log the error with warn level if it is a server error
+    logger.error(
+      JSON.stringify({ ...errorResponse, ...err.toLogObject() }, null, 2)
+    );
   } else {
     // Log the error with error level if it is a server error or unhandled error
     logger.error(

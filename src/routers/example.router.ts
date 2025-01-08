@@ -91,7 +91,7 @@ exampleRouter.get("/page-of-objects", (req, res) => {
 });
 
 exampleRouter.get("/error", (req, res, next: NextFunction) => {
-  next(new NotFoundError("User not found"));
+  next(new NotFoundError("someUserName", "User not found", "username"));
 });
 
 export default exampleRouter;
