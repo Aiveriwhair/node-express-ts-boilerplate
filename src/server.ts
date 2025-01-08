@@ -25,6 +25,7 @@ export class Server {
     this.app = express();
     this.config();
     this.routes();
+    this.errorHandlers();
   }
 
   public config() {
@@ -36,8 +37,9 @@ export class Server {
     this.app.use(bodyParserConfig);
     this.app.use(helmet());
     this.app.use(corsConfig);
+  }
 
-    // Error handling
+  public errorHandlers() {
     this.app.use(errorLoggingHandlerMiddleware);
     this.app.use(errorHandlerMiddleware);
   }
