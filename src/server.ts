@@ -4,14 +4,11 @@ import { rateLimiterConfig } from "./config/rate-limiter";
 import { morganConfig } from "./config/morgan";
 import { corsConfig } from "./config/cors";
 import { bodyParserConfig } from "./config/body-parser";
-import baseRouter from "./routers/base.router";
 import { appEnv } from "./utils/env-loader";
 import { errorLoggingHandlerMiddleware } from "./middlewares/error-logging-handler";
 import { errorHandlerMiddleware } from "./middlewares/error-handler";
 import cookieParser from "cookie-parser";
-import { sessionConfig } from "./config/session";
-import compression from "compression";
-import DatabaseManager from "./database-manager";
+import baseRouter from "./routers/base.router";
 
 export class Server {
   private static instance: Server;
@@ -28,7 +25,6 @@ export class Server {
     this.app = express();
     this.config();
     this.routes();
-    DatabaseManager.getInstance().connectAppDataSource();
   }
 
   public config() {
@@ -40,8 +36,6 @@ export class Server {
     this.app.use(bodyParserConfig);
     this.app.use(helmet());
     this.app.use(corsConfig);
-    this.app.use(sessionConfig);
-    this.app.use(compression());
 
     // Error handling
     this.app.use(errorLoggingHandlerMiddleware);

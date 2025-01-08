@@ -1,13 +1,15 @@
 import path from "path";
+import { EnvVarType, validateEnvVariable } from "./validate-env-variable";
+import { VarEnvValidationError } from "../errors/var-env-validation.error";
 
 /*
- * This file is responsible for loading environment variables from the .env file
+ * This file is responsible for loading and validating environment variables from the .env file.
+ * It must not use the logger as the logger uses the environment variables. (circular dependency)
  */
 
-require("dotenv").config({ path: path.resolve(process.cwd(), ".env") });
-// require("dotenv").config({ path: path.resolve(__dirname, "../.env") });
+require("dotenv").config();
 
-const getEnvVariable = (key: string): string => {
+const getEnvVariable = <T>(key: string, type: EnvVarType): T => {
   const value = process.env[key];
 
   if (!value) {
@@ -15,40 +17,76 @@ const getEnvVariable = (key: string): string => {
     process.exit(1);
   }
 
-  return value;
+  let validated;
+  try {
+    validated = validateEnvVariable<T>(value, type, key);
+  } catch (error) {
+    if (error instanceof VarEnvValidationError) {
+      console.error(
+        `Error validating environment variable ${key}: ${error.toLogObject()}`
+      );
+      process.exit(1);
+    }
+  }
+
+  if (!validated) {
+    console.error(`Error validating environment variable ${key}`);
+    process.exit(1);
+  }
+
+  return validated;
 };
 
-const getOptionalEnvVariable = (key: string): string | undefined => {
+const getOptionalEnvVariable = <T>(
+  key: string,
+  type: EnvVarType
+): T | undefined => {
   const value = process.env[key];
 
   if (!value) {
     console.warn(
       `Environment variable ${key} is not set but retrieved optionally.`
     );
+    return undefined;
   }
 
-  return value;
+  let validated;
+  try {
+    validated = validateEnvVariable<T>(value, type, key);
+  } catch (error) {
+    if (error instanceof VarEnvValidationError) {
+      console.error(
+        `Error validating environment variable ${key}: ${error.message}`
+      );
+      process.exit(1);
+    }
+  }
+
+  if (!validated) {
+    console.warn(`Error validating environment variable ${key}`);
+  }
+
+  return validated;
 };
 
 export const appEnv = {
   app: {
-    domain: getEnvVariable("APP_DOMAIN"),
-    name: getEnvVariable("APP_NAME"),
-    version: getEnvVariable("APP_VERSION"),
+    name: getEnvVariable<string>("APP_NAME", "string"),
+    version: getEnvVariable<string>("APP_VERSION", "string"),
   },
   server: {
-    baseRouterUrl: getEnvVariable("BASE_ROUTER_URL"),
-    port: getOptionalEnvVariable("PORT") || 3000,
-    env: getOptionalEnvVariable("NODE_ENV") || "development",
+    baseRouterUrl: getEnvVariable<string>("BASE_ROUTER_URL", "string"),
+    port: getOptionalEnvVariable<Number>("PORT", "number") || 3000,
+    env: getOptionalEnvVariable<string>("NODE_ENV", "string") || "development",
   },
   cookies: {
-    maxAge: getEnvVariable("COOKIES_MAX_AGE"),
+    maxAge: getEnvVariable<string>("COOKIES_MAX_AGE", "string"),
   },
   cors: {
-    origin: getEnvVariable("CORS_ORIGIN"),
+    origin: getEnvVariable<string>("CORS_ORIGIN", "string"),
   },
   logs: {
-    console_logs: getOptionalEnvVariable("LOG_CONSOLE") == "true",
-    logs_path: getEnvVariable("LOGS_PATH"),
+    console_logs: getOptionalEnvVariable<Boolean>("LOG_CONSOLE", "boolean"),
+    logs_path: getEnvVariable<string>("LOGS_PATH", "string"),
   },
 };
