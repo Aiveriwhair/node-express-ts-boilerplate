@@ -1,4 +1,4 @@
-import { NextFunction, Router } from "express";
+import { Request, Response, Router } from "express";
 import { sendResponse } from "../utils/send-response";
 import { ResponseOkDto } from "../dto/responses/response-ok.dto";
 import { PaginatedDataDto } from "../dto/responses/paginated-data.dto";
@@ -90,8 +90,8 @@ exampleRouter.get("/page-of-objects", (req, res) => {
   );
 });
 
-exampleRouter.get("/error", (req, res, next: NextFunction) => {
-  next(new NotFoundError("someUserName", "User not found", "username"));
+exampleRouter.get("/error", (req: Request, res: Response) => {
+  throw new NotFoundError("someUserName", "User not found", "username");
 });
 
 export default exampleRouter;

@@ -5,8 +5,8 @@ import { morganConfig } from "./config/morgan";
 import { corsConfig } from "./config/cors";
 import { bodyParserConfig } from "./config/body-parser";
 import { appEnv } from "./utils/env-loader";
-import { errorLoggingHandlerMiddleware } from "./middlewares/error-logging-handler";
-import { errorHandlerMiddleware } from "./middlewares/error-handler";
+import { errorLoggingHandlerMiddleware } from "./middlewares/error-logging.middleware";
+import { errorHandlerMiddleware } from "./middlewares/error-handler.middleware";
 import cookieParser from "cookie-parser";
 import baseRouter from "./routers/base.router";
 
