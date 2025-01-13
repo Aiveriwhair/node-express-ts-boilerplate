@@ -1,5 +1,5 @@
-import { appEnv } from "./utils/env-loader";
-import { logger } from "./loggers/logger";
+import { appEnv } from "@utils/env-loader";
+import { logger } from "@loggers/logger";
 import { Server } from "./server";
 
 process.on("uncaughtException", (err: any) => {

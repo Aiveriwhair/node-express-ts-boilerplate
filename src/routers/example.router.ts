@@ -1,8 +1,8 @@
 import { Request, Response, Router } from "express";
-import { sendResponse } from "../utils/send-response";
-import { ResponseOkDto } from "../dto/responses/response-ok.dto";
-import { PaginatedDataDto } from "../dto/responses/paginated-data.dto";
-import { NotFoundError } from "../errors/not-found-error";
+import { sendResponse } from "@utils/send-response";
+import { ResponseOkDto } from "@dto/responses/response-ok.dto";
+import { PaginatedDataDto } from "@dto/responses/paginated-data.dto";
+import { NotFoundError } from "@errors/not-found-error";
 
 const exampleRouter = Router();
 

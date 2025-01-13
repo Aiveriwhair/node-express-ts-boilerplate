@@ -1,14 +1,14 @@
 import helmet from "helmet";
 import express, { Express } from "express";
-import { rateLimiterConfig } from "./config/rate-limiter";
-import { morganConfig } from "./config/morgan";
-import { corsConfig } from "./config/cors";
-import { bodyParserConfig } from "./config/body-parser";
-import { appEnv } from "./utils/env-loader";
-import { errorLoggingHandlerMiddleware } from "./middlewares/error-logging.middleware";
-import { errorHandlerMiddleware } from "./middlewares/error-handler.middleware";
+import { rateLimiterConfig } from "@middlewares/config/rate-limiter";
+import { morganConfig } from "@middlewares/config/morgan";
+import { corsConfig } from "@middlewares/config/cors";
+import { bodyParserConfig } from "@middlewares/config/body-parser";
+import { appEnv } from "@utils/env-loader";
+import { errorLoggingHandlerMiddleware } from "@middlewares/error-logging.middleware";
+import { errorHandlerMiddleware } from "@middlewares/error-handler.middleware";
 import cookieParser from "cookie-parser";
-import baseRouter from "./routers/base.router";
+import baseRouter from "@routers/baseV1.router";
 
 export class Server {
   private static instance: Server;
@@ -45,6 +45,6 @@ export class Server {
   }
 
   private routes() {
-    this.app.use(appEnv.server.baseRouterUrl, baseRouter);
+    this.app.use(appEnv.server.baseRouterUrl + "/v1", baseRouter);
   }
 }

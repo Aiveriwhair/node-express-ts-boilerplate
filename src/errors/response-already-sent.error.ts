@@ -1,5 +1,5 @@
-import { CustomError } from "./custom-error";
-import { HttpStatusCode } from "./httpStatusCodeEnum";
+import { CustomError } from "@errors/custom-error";
+import { HttpStatusCode } from "@errors/httpStatusCodeEnum";
 
 export class ResponseAlreadySentError extends CustomError {
   constructor(message: string = "Response already sent.", details?: any) {

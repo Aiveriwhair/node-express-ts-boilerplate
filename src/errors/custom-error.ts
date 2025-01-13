@@ -1,4 +1,4 @@
-import { HttpStatusCode } from "./httpStatusCodeEnum";
+import { HttpStatusCode } from "@errors/httpStatusCodeEnum";
 
 export abstract class CustomError extends Error {
   public readonly statusCode: number;

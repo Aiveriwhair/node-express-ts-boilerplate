@@ -1,4 +1,4 @@
-import { VarEnvValidationError } from "../errors/var-env-validation.error";
+import { VarEnvValidationError } from "@errors/var-env-validation.error";
 
 export type EnvVarType = "string" | "number" | "boolean" | "array" | "json";
 

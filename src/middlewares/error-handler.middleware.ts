@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
-import { ResponseErrorDto } from "../dto/responses/response-error.dto";
-import { sendResponse } from "../utils/send-response";
-import { CustomError } from "../errors/custom-error";
+import { ResponseErrorDto } from "@dto/responses/response-error.dto";
+import { sendResponse } from "@utils/send-response";
+import { CustomError } from "@errors/custom-error";
 
 export const errorHandlerMiddleware = (
   err: Error,

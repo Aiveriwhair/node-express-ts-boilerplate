@@ -1,5 +1,5 @@
 import { IsInt, Min, IsOptional } from "class-validator";
-import { DTO } from "../dto";
+import { DTO } from "@dto/dto";
 
 export class PaginationDto extends DTO {
   @IsInt()

@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
-import { logger } from "../loggers/logger";
-import { isObjectEmpty } from "../utils/helpers/is-object-empty";
-import { CustomError } from "../errors/custom-error";
+import { logger } from "@loggers/logger";
+import { isObjectEmpty } from "@utils/helpers/is-object-empty";
+import { CustomError } from "@errors/custom-error";
 
 export const errorLoggingHandlerMiddleware = (
   err: Error,
