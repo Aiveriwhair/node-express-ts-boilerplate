@@ -8,5 +8,5 @@ export const errorHandlerMiddleware = (
   next: NextFunction
 ) => {
   ErrorHandlerService.getInstance().handleError(err, req, res);
-  next();
+  next(err);
 };

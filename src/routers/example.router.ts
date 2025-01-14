@@ -7,27 +7,32 @@ import { NotFoundError } from "../errors/not-found-error";
 const exampleRouter = Router();
 
 /**
- * Routes examples to :
- * How to send a successful response with ResponseOkDto
- * - Return no data
- * - Return a single object
- * - return a list of objects
- * - return a page of objects
- * How to return errors with ResponseErrorDto
- *
+ * A router example that demonstrates the use of this nodejs template to send responses.
+ * You can try these routes by running the server and sending requests with pre-built bruno request in : project_directory/bruno-express-rdy-basics
  */
 
 interface User {
   name: string;
   age: number;
 }
-
+/**
+ * The method sendReponse is used to send a response to the client.
+ * To send a successful response, you can use the ResponseOkDto class like so:
+ *
+ * NB: In the following case, the response does not contain any data other than the message and status code.
+ */
 exampleRouter.get("/no-data", (req, res) => {
-  sendResponse(res, new ResponseOkDto("No data returned", 200));
+  sendResponse(
+    res,
+    new ResponseOkDto("Some process was sucessfully performed...", 200)
+  );
 });
 
+/**
+ * To send a successful response containing a single object, you can use the ResponseOkDto class like so:
+ */
 exampleRouter.get("/single-object", (req, res) => {
-  const responseJsonObj = {
+  const responseJsonObj: User = {
     name: "John Doe",
     age: 30,
   };
@@ -42,6 +47,9 @@ exampleRouter.get("/single-object", (req, res) => {
   );
 });
 
+/**
+ * To send a successful response containing a list of objects, you can use the ResponseOkDto class like so:
+ */
 exampleRouter.get("/list-of-objects", (req, res) => {
   const responseJsonArr: User[] = [
     {
@@ -64,6 +72,9 @@ exampleRouter.get("/list-of-objects", (req, res) => {
   );
 });
 
+/**
+ * To send a successful response containing a paginated list of objects, you can use the ResponseOkDto class like so:
+ */
 exampleRouter.get("/page-of-objects", (req, res) => {
   const responseJsonArr: User[] = [
     {
@@ -90,10 +101,20 @@ exampleRouter.get("/page-of-objects", (req, res) => {
   );
 });
 
+/**
+ * To send an error response, you can use a class that extends the CustomError class like so:
+ *
+ * NB: The error middleware will catch this error and send a response to the client since it is thrown synchronously.
+ */
 exampleRouter.get("/error", (req: Request, res: Response) => {
   throw new NotFoundError("someUserName", "User not found", "username");
 });
 
+/**
+ * To send an error response, you can use a class that extends the CustomError class like so:
+ *
+ * NB: We need to catch the error and pass it to the next function to be handled by the error middleware since it is thrown asynchronously.
+ */
 exampleRouter.get(
   "/error-async",
   async (req: Request, res: Response, next: NextFunction) => {
@@ -105,6 +126,12 @@ exampleRouter.get(
   }
 );
 
+/**
+ * An untrusted server error simulation.
+ * This type of error is thrown by cron jobs, third-party libraries, etc.
+ * The error is 
+ *
+ */
 exampleRouter.get(
   "/server-error-sim-untrusted",
   async (req: Request, res: Response, next: NextFunction) => {

@@ -9,8 +9,14 @@ import { errorHandlerMiddleware } from "./middlewares/error-handler.middleware";
 import cookieParser from "cookie-parser";
 import baseRouter from "./routers/baseV1.router";
 
+/**
+ * The server class is a singleton class that creates an instance of the express app.
+ * It also configures the app with middleware and routes.
+ */
 export class Server {
   private static instance: Server;
+  public app: Express;
+
   public static getInstance(): Server {
     if (!Server.instance) {
       Server.instance = new Server();
@@ -18,16 +24,15 @@ export class Server {
     return Server.instance;
   }
 
-  public app: Express;
-
-  constructor() {
+  private constructor() {
     this.app = express();
     this.config();
     this.routes();
     this.errorHandlers();
   }
 
-  public config() {
+  // Configure the app with middleware
+  private config() {
     this.app.use(rateLimiterConfig);
     this.app.use(morganConfig);
     this.app.use(cookieParser());
@@ -37,12 +42,13 @@ export class Server {
     this.app.use(helmet());
     this.app.use(corsConfig);
   }
-
-  public errorHandlers() {
-    this.app.use(errorHandlerMiddleware);
+  // Configure the app with routes
+  private routes() {
+    this.app.use(appEnv.server.baseRouterUrlV1, baseRouter);
   }
 
-  private routes() {
-    this.app.use(appEnv.server.baseRouterUrl + "/v1", baseRouter);
+  // Configure the app with error handlers middleware
+  private errorHandlers() {
+    this.app.use(errorHandlerMiddleware);
   }
 }

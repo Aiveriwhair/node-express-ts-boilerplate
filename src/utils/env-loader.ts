@@ -74,7 +74,7 @@ export const appEnv = {
     version: getEnvVariable<string>("APP_VERSION", "string"),
   },
   server: {
-    baseRouterUrl: getEnvVariable<string>("BASE_ROUTER_URL", "string"),
+    baseRouterUrlV1: getEnvVariable<string>("BASE_ROUTER_URL_V1", "string"),
     port: getOptionalEnvVariable<Number>("PORT", "number") || 3000,
     env: getOptionalEnvVariable<string>("NODE_ENV", "string") || "development",
   },
