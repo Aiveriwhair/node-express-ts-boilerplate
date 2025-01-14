@@ -1,5 +1,5 @@
 import { createLogger, format, transports } from "winston";
-import { appEnv } from "@utils/env-loader";
+import { appEnv } from "../utils/env-loader";
 import path from "path";
 import DailyRotateFile from "winston-daily-rotate-file";
 const { combine, timestamp, prettyPrint } = format;

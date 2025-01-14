@@ -1,6 +1,6 @@
-import { CustomError } from "@errors/custom-error";
-import { InternalServerError } from "@errors/internal-server.error";
-import { ResponseDTO } from "@dto/responses/response.dto";
+import { CustomError } from "../../errors/custom-error";
+import { InternalServerError } from "../../errors/internal-server.error";
+import { ResponseDTO } from "../responses/response.dto";
 
 /**
  * This class is used to send a error response.

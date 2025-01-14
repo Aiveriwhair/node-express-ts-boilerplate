@@ -1,5 +1,5 @@
-import { CustomError } from "@errors/custom-error";
-import { HttpStatusCode } from "@errors/httpStatusCodeEnum";
+import { CustomError } from "./custom-error";
+import { HttpStatusCode } from "./httpStatusCodeEnum";
 
 export class InternalServerError extends CustomError {
   constructor(message: string = "Internal server error.", details?: any) {

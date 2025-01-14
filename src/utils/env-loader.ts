@@ -1,5 +1,5 @@
-import { EnvVarType, validateEnvVariable } from "@utils/validate-env-variable";
-import { VarEnvValidationError } from "@errors/var-env-validation.error";
+import { VarEnvValidationError } from "../errors/var-env-validation.error";
+import { EnvVarType, validateEnvVariable } from "./validate-env-variable";
 
 /*
  * This file is responsible for loading and validating environment variables from the .env file.

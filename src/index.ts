@@ -1,15 +1,19 @@
-import { appEnv } from "@utils/env-loader";
-import { logger } from "@loggers/logger";
 import { Server } from "./server";
+import { logger } from "./loggers/logger";
+import { appEnv } from "./utils/env-loader";
+import { ErrorHandlerService } from "./services/error-handler.service";
 
 process.on("uncaughtException", (err: any) => {
-  logger.error("[ERROR] Uncaught Exception: ", err);
-  process.exit(1);
+  const errorHandlerService =
+    ErrorHandlerService.getInstance() as ErrorHandlerService;
+  errorHandlerService.handleUncaughtException(err);
+  if (!errorHandlerService.isTrustedError(err)) {
+    process.exit(1);
+  }
 });
 
-process.on("unhandledRejection", (err: any) => {
-  logger.error("[ERROR] Unhandled Rejection: ", err);
-  process.exit(1);
+process.on("unhandledRejection", (reason: string, p: Promise<any>) => {
+  throw reason;
 });
 
 const port = appEnv.server.port;

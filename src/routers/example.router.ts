@@ -1,8 +1,8 @@
-import { Request, Response, Router } from "express";
-import { sendResponse } from "@utils/send-response";
-import { ResponseOkDto } from "@dto/responses/response-ok.dto";
-import { PaginatedDataDto } from "@dto/responses/paginated-data.dto";
-import { NotFoundError } from "@errors/not-found-error";
+import { NextFunction, Request, Response, Router } from "express";
+import { sendResponse } from "../utils/send-response";
+import { ResponseOkDto } from "../dto/responses/response-ok.dto";
+import { PaginatedDataDto } from "../dto/responses/paginated-data.dto";
+import { NotFoundError } from "../errors/not-found-error";
 
 const exampleRouter = Router();
 
@@ -93,5 +93,36 @@ exampleRouter.get("/page-of-objects", (req, res) => {
 exampleRouter.get("/error", (req: Request, res: Response) => {
   throw new NotFoundError("someUserName", "User not found", "username");
 });
+
+exampleRouter.get(
+  "/error-async",
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      throw new NotFoundError("someUserName", "User not found", "username");
+    } catch (error: any) {
+      next(error);
+    }
+  }
+);
+
+exampleRouter.get(
+  "/server-error-sim-untrusted",
+  async (req: Request, res: Response, next: NextFunction) => {
+    setTimeout(() => {
+      throw new Error("Server error");
+    }, 1000);
+    sendResponse(res, new ResponseOkDto("Sim OK", 200));
+  }
+);
+
+exampleRouter.get(
+  "/server-error-sim-trusted",
+  async (req: Request, res: Response, next: NextFunction) => {
+    setTimeout(() => {
+      throw new NotFoundError("User", "User not found", "username");
+    }, 1000);
+    sendResponse(res, new ResponseOkDto("Sim OK", 200));
+  }
+);
 
 export default exampleRouter;

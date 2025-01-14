@@ -1,5 +1,5 @@
-import { CustomError } from "@errors/custom-error";
-import { HttpStatusCode } from "@errors/httpStatusCodeEnum";
+import { CustomError } from "./custom-error";
+import { HttpStatusCode } from "./httpStatusCodeEnum";
 
 export default class NotImplementedError extends CustomError {
   constructor(message: string = "Not implemented yet.", details?: any) {

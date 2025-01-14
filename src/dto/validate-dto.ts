@@ -1,9 +1,9 @@
 import { plainToInstance } from "class-transformer";
 import { validate } from "class-validator";
 import { NextFunction, Request, Response } from "express";
-import { DTO } from "@dto/dto";
-import { InvalidInputError } from "@errors/invalid-input.error";
-import { ValidationType } from "@dto/validation-type";
+import { DTO } from "./dto";
+import { InvalidInputError } from "../errors/invalid-input.error";
+import { ValidationType } from "./validation-type";
 
 export function validateDto(
   dtoClass: new () => DTO, // Check that dtoClass is an instance of class that extends DTO

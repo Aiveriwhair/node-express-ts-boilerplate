@@ -1,0 +1,11 @@
+meta {
+  name: !Trusted async error response
+  type: http
+  seq: 8
+}
+
+get {
+  url: http://localhost:3000/api/v1/example/server-error-sim-untrusted
+  body: none
+  auth: none
+}

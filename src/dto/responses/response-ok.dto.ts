@@ -1,5 +1,5 @@
-import { PaginatedDataDto } from "@dto/responses/paginated-data.dto";
-import { ResponseDTO } from "@dto/responses/response.dto";
+import { PaginatedDataDto } from "./paginated-data.dto";
+import { ResponseDTO } from "./response.dto";
 
 /**
  * How to send a successful response:

@@ -1,7 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { ResponseErrorDto } from "@dto/responses/response-error.dto";
-import { sendResponse } from "@utils/send-response";
-import { CustomError } from "@errors/custom-error";
+import { ErrorHandlerService } from "../services/error-handler.service";
 
 export const errorHandlerMiddleware = (
   err: Error,
@@ -9,13 +7,6 @@ export const errorHandlerMiddleware = (
   res: Response,
   next: NextFunction
 ) => {
-  if (err instanceof CustomError) {
-    const errorResponse = new ResponseErrorDto(err);
-    sendResponse(res, errorResponse);
-    return;
-  }
-
-  // If the error is not an instance of CustomError, we will return a generic error message with least information
-  const errorResponse = ResponseErrorDto.fromUnknownError(err);
-  sendResponse(res, errorResponse);
+  ErrorHandlerService.getInstance().handleError(err, req, res);
+  next();
 };
