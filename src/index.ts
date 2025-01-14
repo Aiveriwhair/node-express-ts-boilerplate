@@ -1,6 +1,6 @@
 import { Server } from "./server";
 import { logger } from "./loggers/logger";
-import { appEnv } from "./utils/env-loader";
+import { appEnv } from "./utils/env/app-env";
 import { ErrorHandlerService } from "./services/error-handler.service";
 
 /**

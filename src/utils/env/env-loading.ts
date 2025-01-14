@@ -1,4 +1,4 @@
-import { VarEnvValidationError } from "../errors/var-env-validation.error";
+import { VarEnvValidationError } from "../../errors/var-env-validation.error";
 import { EnvVarType, validateEnvVariable } from "./validate-env-variable";
 
 /*
@@ -8,7 +8,7 @@ import { EnvVarType, validateEnvVariable } from "./validate-env-variable";
 
 require("dotenv").config();
 
-const getEnvVariable = <T>(key: string, type: EnvVarType): T => {
+export const getEnvVariable = <T>(key: string, type: EnvVarType): T => {
   const value = process.env[key];
 
   if (!value) {
@@ -36,7 +36,7 @@ const getEnvVariable = <T>(key: string, type: EnvVarType): T => {
   return validated;
 };
 
-const getOptionalEnvVariable = <T>(
+export const getOptionalEnvVariable = <T>(
   key: string,
   type: EnvVarType
 ): T | undefined => {
@@ -66,26 +66,4 @@ const getOptionalEnvVariable = <T>(
   }
 
   return validated;
-};
-
-export const appEnv = {
-  app: {
-    name: getEnvVariable<string>("APP_NAME", "string"),
-    version: getEnvVariable<string>("APP_VERSION", "string"),
-  },
-  server: {
-    baseRouterUrlV1: getEnvVariable<string>("BASE_ROUTER_URL_V1", "string"),
-    port: getOptionalEnvVariable<Number>("PORT", "number") || 3000,
-    env: getOptionalEnvVariable<string>("NODE_ENV", "string") || "development",
-  },
-  cookies: {
-    maxAge: getEnvVariable<string>("COOKIES_MAX_AGE", "string"),
-  },
-  cors: {
-    origin: getEnvVariable<string>("CORS_ORIGIN", "string"),
-  },
-  logs: {
-    console_logs: getOptionalEnvVariable<Boolean>("LOG_CONSOLE", "boolean"),
-    logs_path: getEnvVariable<string>("LOGS_PATH", "string"),
-  },
 };

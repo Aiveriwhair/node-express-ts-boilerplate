@@ -4,7 +4,7 @@ import { rateLimiterConfig } from "./middlewares/config/rate-limiter";
 import { morganConfig } from "./middlewares/config/morgan";
 import { corsConfig } from "./middlewares/config/cors";
 import { bodyParserConfig } from "./middlewares/config/body-parser";
-import { appEnv } from "./utils/env-loader";
+import { appEnv } from "./utils/env/app-env";
 import { errorHandlerMiddleware } from "./middlewares/error-handler.middleware";
 import cookieParser from "cookie-parser";
 import baseRouter from "./routers/baseV1.router";
