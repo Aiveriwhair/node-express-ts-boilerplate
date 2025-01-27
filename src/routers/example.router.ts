@@ -93,7 +93,7 @@ exampleRouter.get("/page-of-objects", (req, res) => {
 
   sendResponse(
     res,
-    new ResponseOkDto<PaginatedDataDto<User>>(
+    new ResponseOkDto<User>(
       "Page of objects retrieved successfully",
       200,
       new PaginatedDataDto<User>(responseJsonArr, page, pageSize, total)
@@ -129,7 +129,7 @@ exampleRouter.get(
 /**
  * An untrusted server error simulation.
  * This type of error is thrown by cron jobs, third-party libraries, etc.
- * The error is 
+ * The error is
  *
  */
 exampleRouter.get(
