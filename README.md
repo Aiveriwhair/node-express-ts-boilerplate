@@ -1,6 +1,6 @@
 # express-rdy-basics
 
-This is a basic express server with some basic middlewares and routes.
+This is a basic express server setup with error handling, normalized responses and logging.
 
 ## License
 
@@ -37,9 +37,3 @@ npm run dev
 ```bash
 npm run dev
 ```
-
-## Features
-
-- 
-
-## How to build your backend in top of this project
