@@ -1,59 +1,24 @@
 # express-rdy-basics
+A starter project for quickly building RESTful APIs using Node.js, Express, and Typescript.
 
-This is a basic express server setup with error handling, normalized responses and logging.
+## Quick start
+
+Clone the repo:
+
+```bash
+git clone https://github.com/Aiveriwhair/node-express-ts-boilerplate.git
+cd node-express-ts-boilerplate
+npm ci
+```
+
+Set the environment variables:
+
+```bash
+cp .env.example .env
+
+# Then modify the environment variables in the .env file (if needed)
+```
 
 ## License
 
-MIT License
-
-Copyright (c) [2024] [William ISABELLE]
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-
-## Installation
-
-```bash
-npm install
-```
-
-## Usage
-
-### Build the project
-
-```bash
-npm run build
-```
-
-### Start the server
-
-```bash
-npm run start
-```
-
-### Start the server in watch mode
-
-```bash
-npm run dev
-```
-
-## Development
-
-```bash
-npm run dev
-```
+[MIT](LICENSE)
